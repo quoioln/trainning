@@ -398,7 +398,7 @@ $(document).ready(function() {
 //     });
 // });
 
-
+/*
 $('document').ready(function() {
 	$("#add-form").validate({
 	    rules: {
@@ -412,4 +412,24 @@ $('document').ready(function() {
 	    }
 	});  
 
+});
+*/
+$(document).ready(function(){
+	$('#add-form').bootstrapValidator({
+
+feedbackIcons: {
+		valid: 'glyphicon glyphicon-ok',
+		invalid: 'glyphicon glyphicon-remove',
+		validating: 'glyphicon glyphicon-refresh'
+	},
+	fields: {
+		song_name: {
+			validators: {
+				notEmpty: {
+					message: "You're required to fill in a first name!"
+						  }
+						}
+					}
+				}
+	});
 });

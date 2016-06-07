@@ -20,6 +20,7 @@
     <script src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/validation/jquery.validate.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/js/bootstrapValidator.min.js" type="text/javascript"
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
     <script type="text/javascript" src="bootstrap-select-1.10.0/dist/js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src= "js/angular.min.js"></script>
@@ -142,11 +143,11 @@
                         </div>
                         <div class="modal-body">
                                 <!-- <form id="add-form"> -->
-                            <form id="add-form" name="addForm" ng-submit="addSong();" class="form-horizontal">
+                            <form id="add-form"  name="addForm" ng-submit="addSong();" class="form-horizontal">
                                 <table class="table" style="font-size: 20px; cellpadding=\"0\";">
                                     <tr>
                                         <th style="width: 40px;"><label for = "song-name">Name: </label></th>
-                                        <td> <div class="fieldgroup"><input type="text" ng-model="songName" id="song-name" name="song_name" class="text" placeholder="Enter the name's song" ></div><br>
+                                        <td> <div class="fieldgroup"><input type="text" ng-model="songName" id="song-name" name="song_name" class="text" placeholder="Enter the name's song"  data-bv-notempty data-bv-notempty-message="You're required to fill in a first name!"></div><br>
                                         <div class="require" id="requireSongName"></div>
                                         <!-- <span style = "color:red" ng-show = "addForm.song_name.$dirty && addForm.song_name.$invalid">
                                             <span ng-show = "addForm.song_name.$error.required">Song name is required.</span>
