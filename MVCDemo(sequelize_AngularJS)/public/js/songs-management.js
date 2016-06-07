@@ -370,30 +370,46 @@ $(document).ready(function() {
 /**
  *
  */
-$(document).ready(function() {
-    $('#add-form').formValidation({
-        framework: 'bootstrap',
-        excluded: ':disabled',
-        icon: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            song_name: {
-                validators: {
-                    notEmpty: {
-                        message: 'link song name is required'
-                    }
-                }
-            },
-            link: {
-                validators: {
-                    notEmpty: {
-                        message: 'The link is required'
-                    }
-                }
-            }
-        }
-    });
+// $(document).ready(function() {
+//     $('#add-form').formValidation({
+//         framework: 'bootstrap',
+//         excluded: ':disabled',
+//         icon: {
+//             valid: 'glyphicon glyphicon-ok',
+//             invalid: 'glyphicon glyphicon-remove',
+//             validating: 'glyphicon glyphicon-refresh'
+//         },
+//         fields: {
+//             song_name: {
+//                 validators: {
+//                     notEmpty: {
+//                         message: 'link song name is required'
+//                     }
+//                 }
+//             },
+//             link: {
+//                 validators: {
+//                     notEmpty: {
+//                         message: 'The link is required'
+//                     }
+//                 }
+//             }
+//         }
+//     });
+// });
+
+
+$('document').ready(function() {
+	$("#add-form").validate({
+	    rules: {
+	        song_name: "required",
+	    },
+	    messages: {
+	        song_name: "Please enter your firstname"
+	    },
+	    submitHandler: function(form) {
+	        form.submit();
+	    }
+	});  
+
 });
