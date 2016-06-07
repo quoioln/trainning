@@ -1,0 +1,303 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="style/bootstrap-select.min.css">
+    <!-- <link rel="stylesheet" href="style/jquery.auto-complete.css"> -->
+    <link rel="stylesheet" type="text/css" href="style/body.css">
+    <!-- <link rel="stylesheet" type="text/css" href="style/jquery.auto-complete.css"> -->
+    <link rel="stylesheet" type="text/css" href="style/custom.css">
+    <link
+    href="../style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css"
+    type="text/css" rel="stylesheet">
+    <!-- <script type="text/javascript" src="js/jquery.auto-complete.min.js"></script> -->
+    <!-- <script type="text/javascript" src="js/jquery.auto-complete.js"></script> -->
+    <script src="js/jquery.min.js"></script>
+    <!-- <script src="bootstrap/dist/js/bootstrap.min.js"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bootstrap-select-1.10.0/dist/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src= "js/angular.min.js"></script>
+    <!-- <script type="text/javascript" src="js/load-data.js"></script> -->
+    <script type="text/javascript" src="js/songsController.js"></script>
+    <script type="text/javascript" src="js/songs-management.js"></script>
+    
+</head>
+<body class="container">
+    <div ng-app = "mainApp">
+        <div ng-controller = "loadSongs">
+            
+                <nav id="myNavbar" class="navbar navbar-inverse " role="navigation">
+                    <div class="container" style="background: black; z-index:50" >
+                        
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse" style="background: black;">
+                            <!-- <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span> -->
+                            <span class="glyphicon glyphicon-th" style="font-size: 3em; color: white;"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarCollapse" style="background: black;" >
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <select  ng-change="search()" class="form-control" ng-model="topics" ng-options="language.language_code as language.language_name for language in languagesLoad">
+                                    <option value="" selected>Languages</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <select ng-change="search()" class="form-control" ng-model="topics" ng-options="topic.topic_code as topic.topic_name for topic in topicsLoad">
+                                    <option value="" selected>Topics</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <form id="search-form">
+                                        <div class="input-group" >
+                                            <input type="text" ng-change="search();" class="form-control" id="song-search" name="q" ng-model="songSearch" placeholder="Enter the name's song" size="20" style="width: 150px;">
+                                            <!-- <span class=""> -->
+                                                <button class="btn btn-info btn-md" type="submit" ng-click="search()" ><span class="glyphicon glyphicon-search"></span></button>
+
+                                        </div>
+                                    </form>
+                                </li>
+                                <li style="padding-left:100px;">
+                                    <button class="btn btn-md btn-success" data-toggle="modal" data-target="#modelAddForm"><span class="fa fa-plus-circle" class="button"></span>
+                                    <!-- <br> -->
+                                    Add</button>&nbsp;
+                                </li>
+
+                                <li style="left: 2px; position: relative;">
+                                    <button class="btn btn-success btn-md" id="btn-pre-update" style="border-radius: 0px;"><span class="fa fa-pencil fa-fw"></span>
+                                    <!-- <br> -->
+                                    Update</button>&nbsp;
+                                </li>
+                                <li style="left: 4px; position: relative;">
+                                    <button class="btn btn-success btn-md" id="btn-delete-song" style="border-radius: 0px;"><span class="fa fa-trash-o"></span>
+                                    <!-- <br> -->
+                                    Delete</button>&nbsp;
+                                </li>
+                            </ul>
+                        </div>
+                        <div style="background-color: black;"><br></div>
+                        <div style="text-align: center; background-color: black;width: 100%">
+                        <iframe name="song" src="image/youtubemusic.png" width="640px;" height="480px;" style="border: solid 0px;" allowfullscreen></iframe>
+                        </div>
+                        <!-- <img src="image/youtubemusic.png" width="100%" height="480px;"> -->
+                    </div>
+                </nav>
+            <!-- </div> -->
+            <div class="container">
+                <div id="content">
+                    <div id="view-table" class="view-table">
+                        <table class="table table-hover" id="view-song">
+                            <thead>
+                                <tr id="row-header">
+                                    <td><input type="checkbox" name="checkAll" class="checkAll" id="checkAll" value="All"></td>
+                                    <th>Name</th>
+                                    <th>Musician</th>
+                                    <th>Singer</th>
+                                    <th>Karaoke</th>
+                                    <th>Duration</th>
+                                    <th>Link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat = "song in songs" class="rowContent">
+                                    <td><input type="checkbox" name="checkbox" class="checkbox" id="checkbox" value="{{song.song_id}}"></td>
+                                    <td>{{song.song_name}}</td>
+                                    <td>{{song.musican}}</td>
+                                    <td>{{song.singer}}</td>
+                                    <td>{{song.karaoke}}</td>
+                                    <td>{{song.duration}}</td>
+                                    <td><a href="{{song.link}}" target="song">{{song.link}}</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        <!-- </div>
+        <div ng-controller="addSongController"> -->
+            <div class="modal fade" id="modelAddForm" role="dialog" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add Song</h4>
+                        </div>
+                        <div class="modal-body">
+                                <!-- <form id="add-form"> -->
+                            <form id="add-form" name="addForm" ng-submit="addSong();" class="form-horizontal">
+                                <table class="table" style="font-size: 20px; cellpadding=\"0\";">
+                                    <tr>
+                                        <th style="width: 40px;"><label for = "song-name">Name: </label></th>
+                                        <td> <input type="text" ng-model="songName" id="song-name" name="song_name" class="text" placeholder="Enter the name's song"><br>
+                                        <div class="require" id="requireSongName"></div>
+                                        <!-- <span style = "color:red" ng-show = "addForm.song_name.$dirty && addForm.song_name.$invalid">
+                                            <span ng-show = "addForm.song_name.$error.required">Song name is required.</span>
+                                        </span> -->
+                                        </td>
+                                        <td> (*)</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 40px;"><label for = "link">Link: </label></th>
+                                        <td> <input ng-model="link" type="text" id="link" name="link" class="text" placeholder="Enter the link of song"><br>
+                                        <div class="require" id="requireLink"></div>
+                                        <!-- <span style = "color:red" ng-show = "addForm.link.$dirty && addForm.link.$invalid">
+                                            <span ng-show = "addForm.link.$error.required">Link is required.</span>
+                                        </span> -->
+                                        </td>
+                                        <td> (*)</td>
+                                    </tr>
+                                    <tr>
+                                        <th><label for = "musican-name">Musican: </label></th>
+                                        <td > <input ng-model="musicanName" type="text" id="musican-name" name="musican_name" class="text" placeholder="Enter the name's musican"></td>
+                                    </tr>
+                                    <tr>
+                                        <th><label for = "singer-name">Singer: </label></th>
+                                        <td > <input ng-model="singerName" type="text" id="singer-name" name="singer_name" class="text" placeholder="Enter the name's singer"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Karaoke: </th>
+                                        <td > <input ng-model="karaoke" type="radio" name="karaoke" value="1" checked> Yes &nbsp;<input ng-model="karaoke" type="radio" name="karaoke" value="0"> No</td>
+                                    </tr>
+                                    <tr>
+                                        <th><label for = "duration">Duration: </label> </th>
+                                        <td > <input ng-model="duration" type="number" class="text" id = "duration" name="duration" value="0"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><label for = "add-form-topics">Topic: </label></th>
+                                        <td >
+                                            <select name = "topicsAdd" class="form-control" id="add-form-topics" ng-model="topicsAdd" ng-options="topic.topic_code as topic.topic_name for topic in topicsLoad">
+                                                <option value="">Topics</option>
+                                            <br>
+                                            <div class="require" id="requireTopic"></div>
+<!--                                             <span style = "color:red" ng-show = "addForm.topicsAdd.$dirty && addForm.topicsAdd.$invalid">
+                                            <span ng-show = "addForm.topicsAdd.$error.required">Topic is required.</span>
+                                        </span> -->
+                                        </td>
+                                        <td> (*)</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th><label for = "add-form-languages">Language: </label></th>
+                                        <td >
+                                            <select name="languagesAdd" class="form-control" id="add-form-languages" ng-model="languagesAdd" ng-options="language.language_code as language.language_name for language in languagesLoad">
+                                                <option value="">Languages</option>
+
+                                            </select>
+                                            <br>
+                                            <div class="require" id="requireLanguage"></div>
+                                            <!-- <span style = "color:red" ng-show = "addForm.languagesAdd.$dirty && addForm.languagesAdd.$invalid">
+                                            <span ng-show = "addForm.languagesAdd.$error.required">Language is required.</span>
+                                            </span> -->
+                                        </td>
+                                        <td> (*)</td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <th colspan="3" style="text-align: center;">
+                                             <button id = "btn-add" type="button" class="btn btn-success btn-lg" style="border-radius: 0px;"><span class="fa fa-plus-circle"></span>&nbsp;Add</button>&nbsp;
+                                             <button type="button" id = "btn-clear" class="btn btn-success btn-lg" style="border-radius: 0px;"><span class="fa fa-eraser"></span>&nbsp;Clear</button>&nbsp;
+
+
+                                              <button type="button" id = "btn-cancel" class="btn btn-success btn-lg" style="border-radius: 0px;"><span class="fa fa-sign-out" aria-hidden="true"></span>&nbsp;Cancel</button>&nbsp;
+
+                                        </th>
+                                    </tr> -->
+
+                                </table>
+                            </form>
+                        </div>
+                        <div class="modal-footer" style="text-align:center;">
+                            <!-- <button id = "btn-add" type="button" ng-click="addSong()" class="btn btn-success btn-lg" style="border-radius: 0px;" data-dismiss="modal" ng-disabled = "addForm.song_name.$dirty &&
+                        addForm.song_name.$invalid || addForm.link.$dirty &&
+                        addForm.link.$invalid || addForm.topicsAdd.$dirty &&
+                        addForm.topicsAdd.$invalid || addForm.languagesAdd.$dirty &&
+                        addForm.languagesAdd.$invalid"><span class="fa fa-plus-circle"></span>&nbsp;Add</button>&nbsp; -->
+                            <button id = "btn-add" type="button" ng-click="addSong()" class="btn btn-success btn-lg" style="border-radius: 0px;" data-dismiss="modal"><span class="fa fa-plus-circle"></span>&nbsp;Add</button>&nbsp;
+                            <button type="button" id = "btn-clear" class="btn btn-success btn-lg" style="border-radius: 0px;"><span class="fa fa-eraser"></span>&nbsp;Clear</button>&nbsp;
+                            <button type="button" class="btn btn-success btn-lg" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- From update song  -->
+      <!--   <form id="update-form" class="form">
+            <table class="table" style="font-size: 20px; cellpadding=\"0\";">
+                <tr>
+                    <th colspan="2" style="text-align: center;">Update Song</th>
+                </tr>
+                <tr>
+                    <th style="width: 40px;"><label for = "song-name">Name: </label></th>
+                    <td>
+                        <input type="hidden" name="song-id" id="song-id">
+                        <input type="text" id="song-name" name="song_name" class="text" placeholder="Enter the name's song" value="abc"><br><div class="require" id="requireSongName"></div>
+                    </td>
+                    <td> (*)</td>
+                </tr>
+                <tr>
+                    <th style="width: 40px;"><label for = "link">Link: </label></th>
+                    <td> <input type="text" id="link" name="link" class="text" placeholder="Enter the link of song"><br><div class="require" id="requireLink"></div></td>
+                    <td> (*)</td>
+                </tr>
+                <tr>
+                    <th><label for = "musican-name">Musican: </label></th>
+                    <td > <input type="text" id="musican-name" name="musican_name" class="text" placeholder="Enter the name's musican"></td>
+                </tr>
+                <tr>
+                    <th><label for = "singer-name">Singer: </label></th>
+                    <td > <input type="text" id="singer-name" name="singer_name" class="text" placeholder="Enter the name's singer"></td>
+                </tr>
+                <tr>
+                    <th>Karaoke: </th>
+                    <td > <input type="radio" name="karaoke" value="1" checked> Yes &nbsp;<input type="radio" name="karaoke" value="0"> No</td>
+                </tr>
+                <tr>
+                    <th><label for = "duration">Duration: </label> </th>
+                    <td > <input type="number" class="text" id = "duration" name="duration" value="0"></td>
+                </tr>
+
+                <tr>
+                    <th><label for = "add-form-topics">Topic: </label></th>
+                    <td >
+                        <select id="add-form-topics" class="select">
+
+                        </select>
+                        <br><div class="require" id="requireTopic"></div>
+                    </td>
+                    <td> (*)</td>
+                </tr>
+
+                <tr>
+                    <th><label for = "add-form-languages">Language: </label></th>
+                    <td >
+                        <select class="select" id="add-form-languages">
+
+                        </select>
+                        <br><div class="require" id="requireLanguage"></div>
+                    </td>
+                    <td> (*)</td>
+                </tr>
+                <tr>
+                    <th colspan="3" style="text-align: center;">
+                         <button type="submit" id = "btn-update" class="btn btn-success btn-lg" style="border-radius: 0px;"><span class="fa fa-floppy-o"></span>&nbsp;Save</button>&nbsp;
+                         <button type="button" id = "btn-update-clear" class="btn btn-success btn-lg" style="border-radius: 0px;"><span class="fa fa-eraser"></span>&nbsp;Clear</button>&nbsp;
+
+                          <button type="button" id = "btn-update-cancel" class="btn btn-success btn-lg" style="border-radius: 0px;"><span class="fa fa-sign-out" aria-hidden="true"></span>&nbsp;Cancel</button>&nbsp;
+
+                    </th>
+                </tr>
+
+            </table>
+        </form> -->
+    </div>
+    </div>
+</body>
+</html>

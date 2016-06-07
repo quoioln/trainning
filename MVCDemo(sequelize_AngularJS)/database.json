@@ -1,0 +1,6 @@
+{
+	"driver": "mysql",
+	"user": "user1",
+	"password": "user1",
+	"database": "music"
+}

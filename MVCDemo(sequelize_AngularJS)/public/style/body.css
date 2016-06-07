@@ -1,0 +1,55 @@
+/*.form-control {
+	border: 1px solid #ccc;
+	border-radius: 0px;
+
+}*/
+/*
+.text {
+
+	padding-top: 2px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 2px;
+	
+}
+
+.font {
+	font-size: 16px; 
+}
+.search {
+    float: left;
+    
+}
+.header {
+	
+}
+.selectpicker option {
+	border-radius: 0px;
+	font-size: 16px;
+
+}
+.select {
+	height: 40px;
+	padding: 5px 10px 5px 10px;
+	border: 1px solid #ccc; 
+	margin-right: 5px;
+}	
+*/
+.view-table {
+	font-size: 20px;
+}
+.form {
+	display: none;
+	width: 40%;
+	margin: 0 auto;
+}
+#row-header th {
+	text-align: center;
+}
+
+.require {
+	color: red;
+}
+.btn {
+	height: 40px;
+}
