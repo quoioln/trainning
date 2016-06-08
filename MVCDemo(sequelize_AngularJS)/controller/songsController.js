@@ -33,15 +33,16 @@ exports.add = function (req, res) {
 	return;
 }
 exports.preUpdate = function (req, res) {
-	var dataReq = req.query;
-	var songId = dataReq["songId"];
+	var dataReq = req.body;
+	console.log(dataReq);
+	var songId = dataReq["song_id"];
 	songsDAO.getBySongId(songId, function(songs){
 		res.json(songs);
 	});
 	return;
 }
 exports.update = function (req, res) {
-	var song = req.query;
+	var song = req.body;
 
 	songsDAO.updateBySongId(song, function(status){
 		console.log(status.status);
@@ -50,7 +51,7 @@ exports.update = function (req, res) {
 	return;
 }
 exports.delete = function (req, res) {
-	var songIds = req.query.songIds;
+	var songIds = req.body.songIds;
 	songsDAO.deleteBySongId(songIds, function(result){
 		res.json(result);
 	});

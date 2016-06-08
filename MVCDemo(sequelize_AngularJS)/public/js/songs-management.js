@@ -305,11 +305,11 @@ $(document).ready(function() {
 		$("#requireLanguage").html("");
 	});
 	$("#add-form-topics").change(function() {
-		$("#requireTopic").html("");
+		$("#requireAddTopic").html("");
 	});
 
 });
-
+/*
 $(document).ready(function() {
 	$("#btn-delete-song").click(function() {
 		var songIdList = [];
@@ -327,6 +327,7 @@ $(document).ready(function() {
     	return false;
 	});
 });
+*/
 /*
  * Event update song
  */
@@ -368,68 +369,10 @@ $(document).ready(function() {
 });
 
 /**
- *
+ * Event add 
  */
-// $(document).ready(function() {
-//     $('#add-form').formValidation({
-//         framework: 'bootstrap',
-//         excluded: ':disabled',
-//         icon: {
-//             valid: 'glyphicon glyphicon-ok',
-//             invalid: 'glyphicon glyphicon-remove',
-//             validating: 'glyphicon glyphicon-refresh'
-//         },
-//         fields: {
-//             song_name: {
-//                 validators: {
-//                     notEmpty: {
-//                         message: 'link song name is required'
-//                     }
-//                 }
-//             },
-//             link: {
-//                 validators: {
-//                     notEmpty: {
-//                         message: 'The link is required'
-//                     }
-//                 }
-//             }
-//         }
-//     });
-// });
-
-/*
-$('document').ready(function() {
-	$("#add-form").validate({
-	    rules: {
-	        song_name: "required",
-	    },
-	    messages: {
-	        song_name: "Please enter your firstname"
-	    },
-	    submitHandler: function(form) {
-	        form.submit();
-	    }
-	});  
-
-});
-*/
-$(document).ready(function(){
-	$('#add-form').bootstrapValidator({
-
-feedbackIcons: {
-		valid: 'glyphicon glyphicon-ok',
-		invalid: 'glyphicon glyphicon-remove',
-		validating: 'glyphicon glyphicon-refresh'
-	},
-	fields: {
-		song_name: {
-			validators: {
-				notEmpty: {
-					message: "You're required to fill in a first name!"
-						  }
-						}
-					}
-				}
+$(document).ready(function() {
+	$('#btnPreAdd').click(function (){
+		$('#modelAddForm').modal("show");
 	});
 });

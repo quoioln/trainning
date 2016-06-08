@@ -12,10 +12,10 @@ router.get('/', function(req, res, next) {
 });
 router.get('/loadSongs', songsController.getAll);
 router.get('/searchSongs', songsController.search);
-router.get('/preUpdateSong', songsController.preUpdate);
-router.get('/updateSong', songsController.update);
+router.post('/preUpdateSong', songsController.preUpdate);
+router.post('/updateSong', songsController.update);
 router.put('/addSong', songsController.add);
-router.get('/deleteSongs', songsController.delete);
+router.post('/deleteSongs', songsController.delete);
 
 
 router.get('/loadLanguages', languagesController.getAll);

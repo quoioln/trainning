@@ -67,8 +67,6 @@ mainApp.controller('loadSongs', ['$scope', '$rootScope', '$http',
     function loadSongs() {
       $http.get('/loadSongs').success(function(data) {
         $scope.songs = data;
-        
-
       });
     }
     function loadLanguages() {
@@ -112,6 +110,41 @@ mainApp.controller('loadSongs', ['$scope', '$rootScope', '$http',
         });
 
     };
+    $scope.resetAddForm = function() {
+      $scope.songName = '';
+      $scope.link = '';
+      $scope.duration = 0;
+      $scope.musicanName = '';
+      $scope.singerName ='';
+      $scope.languagesAdd = '';
+      $scope.topicsAdd = '';
+      $scope.karaoke = '';
+    }
+    $scope.confirmDataAdd = function (song) {
+      var check = false;
+      if (song.language_code == '' || song.language_code == null) {
+        $("#requireLanguage").html("Please select the language!!!");
+        $("#add-form-languages").focus();
+        check = true;
+      }
+      if (song.topic_code == '' || song.topic_code == null) {
+        $("#requireAddTopic").html("Please select the topic!!!");
+        $("#add-form-topics").focus();
+        check = true;
+      }
+      if (song.link == '' || song.link == null) {
+        $("#requireLink").html("Please enter the link of song!!!");
+        $("#link").focus();
+        check = true;
+      }
+      if (song.song_name == '' || song.song_name == null) {
+        $("#requireSongName").html("Please enter the name's song!!!");
+        $("#song-name").focus();
+        check = true;
+      }
+      return check;
+    }
+
     $scope.addSong = function() {
       var musicanName = $scope.musicanName;
       var singerName = $scope.singerName;
@@ -129,49 +162,136 @@ mainApp.controller('loadSongs', ['$scope', '$rootScope', '$http',
         topic_code: $scope.topicsAdd,
         karaoke: $scope.karaoke
       }
-      /*
-      if (song.song_name == '' || song.song_name == null) {
-        $("#requireSongName").html("Please enter the name's song!!!");
-        $("#song-name").focus();
-        return false;
-      }
-      if (song.link == '' || song.link == null) {
-        $("#requireLink").html("Please enter the link of song!!!");
-        $("#link").focus();
-        return false;
-      }
 
-      if (song.topic_code == '' || song.topic_code == null) {
-        $("#requireTopic").html("Please select the topic!!!");
-        $("#add-form-topics").focus();
+      if($scope.confirmDataAdd(song))
         return false;
-      }
-      if (song.language_code == '' || song.language_code == null) {
-        $("#requireLanguage").html("Please select the language!!!");
-        $("#add-form-languages").focus();
-        return false;
-      }
-      */
       $http.put('/addSong', song).success(function(songId){
           // alert(songId);
           song.song_id = songId;
-          $scope.songs.push(song);
+          $scope.songs.unshift(song);
+          $('#modelAddForm').modal("hide");
+          $scope.resetAddForm();
       }).error(function(){
 
       });
     }
+    $scope.checkSelected = function(purpose) {
+      var songIdList = [];
+      $.each($(".checkbox:checked"), function(){            
+        songIdList.push($(this).val());
+        });
+      if (songIdList.length == 0) {
+        alert("You must select one song to " + purpose + " !!!");
+        return false;
+      } else if (songIdList.length > 1 && purpose == "update") {
+        alert("You select only one song to " + purpose + " !!!");
+        return false;
+      }
+      return songIdList;
+    }
+    
+    $scope.confirmDataUpdate = function (song) {
+      var check = false;
+      if (song.language_code == '' || song.language_code == null) {
+        $("#update-form #requireLanguage").html("Please select the language!!!");
+        $("#update-form #add-form-languages").focus();
+        check = true;
+      }
+      if (song.topic_code == '' || song.topic_code == null) {
+        $("#update-form #requireAddTopic").html("Please select the topic!!!");
+        $("#update-form #add-form-topics").focus();
+        check = true;
+      }
+      if (song.link == '' || song.link == null) {
+        $("#update-form #requireLink").html("Please enter the link of song!!!");
+        $("#update-form #link").focus();
+        check = true;
+      }
+      if (song.song_name == '' || song.song_name == null) {
+        $("#update-form #requireSongName").html("Please enter the name's song!!!");
+        $("#update-form #song-name").focus();
+        check = true;
+      }
+      return check;
+    }
+    
+    $scope.preUpdate = function() {
+      var songIdList = $scope.checkSelected("update");
+      if (songIdList) {
+        $http.post('/preUpdateSong', {song_id: songIdList[0]}).success(function(song){
+          $scope.songIdUpdate = song.song_id;
+          $scope.songNameUpdate = song.song_name;
+          $scope.linkUpdate = song.link;
+          $scope.singerUpdate = song.singer;
+          $scope.musicanUpdate = song.musican;
+          $scope.languagesUpdate = song.language_code;
+          $scope.topicsUpdate = song.topic_code;
+          $scope.karaokeUpdate = song.karaoke;
+          $scope.durationUpdate = song.duration;
+
+          $('#modelUpdateForm').modal("show");
+        }).error(function(){
+
+        });
+      }
+    }
+    $scope.update = function() {
+      var musicanName = $scope.musicanUpdate;
+      var singerName = $scope.singerUpdate;
+      if (musicanName == "")
+        musicanName = "unknown";
+      if(singerName == "")
+        singerName = "unknown";
+      var song = {
+        song_name: $scope.songNameUpdate,
+        song_id: $scope.songIdUpdate,
+        link: $scope.linkUpdate,
+        duration: $scope.durationUpdate,
+        musican: musicanName,
+        singer: singerName,
+        language_code: $scope.languagesUpdate,
+        topic_code: $scope.topicsUpdate,
+        karaoke: $scope.karaokeUpdate
+      }
+
+      if($scope.confirmDataUpdate(song))
+        return false;
+      $http.post('/updateSong', song).success(function(status){
+        var karaoke = "";
+          if (song.karaoke == 1)
+              karaoke = "Yes";
+          else
+              karaoke = "No";
+          var row = "<td><input type=\"checkbox\" id=\"" + song.song_id + "\" class = \"checkbox\"" +" value=\"" + song.song_id + "\">"
+                  + "<td>" + song.song_name + "</td>"
+                  + "<td>" + song.musican + "</td>"
+                  + "<td>" + song.singer + "</td>"
+                  + "<td>" + song.karaoke + "</td>"
+                  + "<td>" + song.duration + "</td>"
+                  + "<td><a target=\"song\" href=\"" + song.link + "\">"+ song.link.replace("watch?v=", "v/") + "</a></td>";
+                  // + "<td><a width =\"320\" height=\"240\"  src=\"" + song.link.replace("watch?v=", "v/") + "\" allowfullscreen frameborder=\"0\">"+  "</iframe></td>";
+          $("#view-table table tr").has("input[name=checkbox]:checked").html(row);
+          $('#modelUpdateForm').modal("hide");
+        }).error(function(){
+
+        });
+
+    }
+    $scope.delete = function() {
+      var songIdList = $scope.checkSelected("delete");
+      if(!confirm("Are you sure delete songs?"))
+        return false;
+      if(songIdList) {
+        $http.post('/deleteSongs', {songIds: songIdList}).success(function(status){
+          $("#view-table table tr").has("input[name=checkbox]:checked").remove();
+        });
+      }
+    }
+
     loadSongs();
     loadLanguages();
     loadTopics();
     // addSong();
+      // }
 
   }]);
-  // $scope.loadSongs = function() {
-	 //  var url = 'http://localhost:12345/loadSongs';// URL where the Node.js server is running	
-	 //  $http.get(url).success(function(data) {
-		// $scope.users = data;
-	 //  });
-  //         // Accessing the Angular $http Service to get data via REST Communication from Node Server 
-  // };
-
-  // $scope.loadSongs();
