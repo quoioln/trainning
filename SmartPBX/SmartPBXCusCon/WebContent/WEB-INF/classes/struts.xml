@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.custom.i18n.resources" value="global" />
+    <constant name="struts.action.excludePattern" value="/api/.*" />
+    <constant name="struts.action.extension" value="," />
+    <constant name="struts.locale" value="jp" />
+    <!-- Step2.9 START #2407 -->
+    <constant name="struts.multipart.maxSize" value="2097152" />
+    <!-- Step2.9 END #2407 -->
+
+    <package name="base" extends="struts-default">
+        <result-types>
+            <result-type name="tiles"
+                class="org.apache.struts2.views.tiles.TilesResult" />
+            <result-type name="csv" class="com.ntt.smartpbx.csv.CSVResult" />
+            <!-- Start step1.6x ADD-G06-01 -->
+            <result-type name="csvImcomingGroup"
+                class="com.ntt.smartpbx.csv.CSVResultIncomingGroup" />
+            <!-- End step1.6x ADD-G06-01 -->
+        </result-types>
+
+        <interceptors>
+            <interceptor name="languageInterceptor"
+                class="com.ntt.smartpbx.interceptor.LanguageInterceptor"></interceptor>
+
+            <interceptor-stack name="secureDefaultStack">
+                <interceptor-ref name="languageInterceptor" />
+                <interceptor-ref name="defaultStack">
+                    <param name="exception.logEnabled">true</param>
+                    <param name="exception.logLevel">ERROR</param>
+                    <!-- Step2.6 START #2017 -->
+                    <!--<param name="params.excludeParams">(.*\.|^|.*|\[('|"))(c|C)lass(\.|('|")]|\[).*,^dojo\..*,^struts\..*,^session\..*,^request\..*,^application\..*,^servlet(Request|Response)\..*,^parameters\..*,^action:.*,^method:.*</param> -->
+                    <!-- Step2.6 END #2017 -->
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="secureDefaultStack" />
+
+        <global-results>
+            <result name="error" type="tiles">G9001</result>
+            <result name="unknown_error" type="chain">
+                <param name="actionName">UnknownError</param>
+            </result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception"
+                result="unknown_error" />
+        </global-exception-mappings>
+    </package>
+
+    <package name="default" namespace="/" extends="base">
+
+        <action name="Login" class="com.ntt.smartpbx.action.user.LoginAction">
+            <result name="TERMINAL_USER" type="redirect">Top</result>
+            <result name="OPERATOR" type="redirect">NNumberSearch</result>
+            <result name="USER_MANAGER_BEFORE" type="redirect">Top</result>
+            <result name="USER_MANAGER_AFTER" type="redirect">Top</result>
+            <result name="PASSWORD_EXPIRE" type="redirect">PasswordLimit
+            </result>
+            <result name="input" type="tiles">G0101</result>
+        </action>
+
+        <!-- START 880 -->
+        <action name="ChangeLangLogin"
+            class="com.ntt.smartpbx.action.user.ChangeLanguageAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">Login</param>
+            </result>
+        </action>
+        <action name="ChangeLangTop"
+            class="com.ntt.smartpbx.action.user.ChangeLanguageAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">Top</param>
+            </result>
+        </action>
+        <!-- END 880 -->
+
+        <action name="Logout" class="com.ntt.smartpbx.action.user.LogoutAction">
+            <result name="success" type="tiles">G0104</result>
+        </action>
+
+        <action name="Top" class="com.ntt.smartpbx.action.TopAction">
+            <result name="success" type="tiles">G0301</result>
+        </action>
+
+        <action name="PasswordUpdate"
+            class="com.ntt.smartpbx.action.user.PasswordUpdateAction">
+            <result name="input" type="tiles">G0401</result>
+            <result name="success" type="redirect">PasswordUpdateFinish</result>
+        </action>
+
+        <!-- Start step 2.5 #1945 -->
+        <action name="PasswordUpdateFinish"
+            class="com.ntt.smartpbx.action.user.PasswordUpdateFinishAction">
+        <!-- End step 2.5 #1945 -->
+            <result type="tiles">G0402</result>
+        </action>
+
+        <action name="PasswordLimit" class="com.ntt.smartpbx.action.user.PasswordLimitAction">
+            <result name="success" type="redirect">PasswordLimitUpdateFinish</result>
+            <result name="input" type="tiles">G0102</result>
+        </action>
+
+        <action name="PasswordLimitUpdateFinish"
+            class="com.ntt.smartpbx.action.user.PasswordLimitUpdateFinishAction">
+            <result name="success" type="tiles">G0103</result>
+            <result name="TERMINAL_USER" type="redirect">Top</result>
+            <result name="OPERATOR" type="redirect">NNumberSearch</result>
+            <result name="USER_MANAGER_BEFORE" type="redirect">Top</result>
+            <result name="USER_MANAGER_AFTER" type="redirect">Top</result>
+        </action>
+
+        <action name="InitSetting" class="com.ntt.smartpbx.action.InitSettingAction">
+            <result name="success" type="tiles">G0501</result>
+            <result name="input" type="tiles">G0501</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">IncomingGroupSettingView</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+            <result name="search" type="tiles">G0501</result>
+            <result name="next" type="tiles">G0501</result>
+            <result name="previous" type="tiles">G0501</result>
+        </action>
+
+        <action name="IncomingGroupSettingView"
+            class="com.ntt.smartpbx.action.IncomingGroupSettingViewAction">
+            <result name="success" type="tiles">G0601</result>
+            <result name="search" type="tiles">G0601</result>
+            <result name="next" type="tiles">G0601</result>
+            <result name="previous" type="tiles">G0601</result>
+            <result name="insert" type="redirectAction">
+                <param name="actionName">IncomingGroupSettingAdd</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+            <result name="update" type="redirectAction">
+                <param name="actionName">IncomingGroupSettingUpdate</param>
+                <param name="incomingGroupId">${incomingGroupId}</param>
+                <!-- // START #429 -->
+                <!-- <param name="incomingGroupName">${incomingGroupName}</param> -->
+                <!-- // END #429 -->
+                <param name="tutorial">${tutorial}</param>
+            </result>
+            <result name="delete" type="redirectAction">
+                <param name="actionName">IncomingGroupSettingDelete</param>
+                <param name="incomingGroupId">${incomingGroupId}</param>
+                <!-- // START #429 -->
+                <!-- <param name="incomingGroupName">${incomingGroupName}</param> -->
+                <!-- // END #429 -->
+                <param name="tutorial">${tutorial}</param>
+            </result>
+            <result name="view" type="redirectAction">
+                <param name="actionName">IncomingGroupSettingConfirm</param>
+                <param name="incomingGroupId">${incomingGroupId}</param>
+                <!-- // START #429 -->
+                <!-- <param name="incomingGroupName">${incomingGroupName}</param> -->
+                <!-- // END #429 -->
+                <param name="tutorial">${tutorial}</param>
+            </result>
+            <result name="input" type="tiles">G0601</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">OutsideIncomingSettingView</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+            <!-- //Start step1.6x ADD-G06-01 -->
+            <result name="export" type="csvImcomingGroup"></result>
+            <!-- //End step1.6x ADD-G06-01 -->
+        </action>
+        <action name="IncomingGroupSettingAdd"
+            class="com.ntt.smartpbx.action.IncomingGroupSettingAddAction">
+            <result name="success" type="tiles">G0602</result>
+            <result name="input" type="tiles">G0602</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">IncomingGroupSettingAddFinish</param>
+                <param name="incomingGroupIdInserted">${incomingGroupIdInserted}</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+            <result name="search" type="tiles">G0602</result>
+        </action>
+
+        <action name="IncomingGroupSettingAddFinish"
+            class="com.ntt.smartpbx.action.IncomingGroupSettingAddFinishAction">
+            <result name="success" type="tiles">G0603</result>
+        </action>
+
+        <action name="IncomingGroupSettingUpdate"
+            class="com.ntt.smartpbx.action.IncomingGroupSettingUpdateAction">
+            <result name="success" type="tiles">G0604</result>
+            <result name="input" type="tiles">G0604</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">IncomingGroupSettingUpdateFinish</param>
+                <param name="incomingGroupId">${incomingGroupId}</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+            <result name="search" type="tiles">G0604</result>
+        </action>
+
+        <action name="IncomingGroupSettingUpdateFinish"
+            class="com.ntt.smartpbx.action.IncomingGroupSettingUpdateFinishAction">
+            <result name="success" type="tiles">G0605</result>
+        </action>
+
+        <action name="IncomingGroupSettingDelete"
+            class="com.ntt.smartpbx.action.IncomingGroupSettingDeleteAction">
+            <result name="success" type="tiles">G0606</result>
+            <result name="delete" type="redirectAction">
+                <param name="actionName">IncomingGroupSettingDeleteFinish</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+            <result name="input" type="tiles">G0606</result>
+        </action>
+
+        <action name="IncomingGroupSettingDeleteFinish"
+            class="com.ntt.smartpbx.action.IncomingGroupSettingDeleteFinishAction">
+            <result name="success" type="tiles">G0607</result>
+        </action>
+
+        <action name="IncomingGroupSettingConfirm"
+            class="com.ntt.smartpbx.action.IncomingGroupSettingConfirmAction">
+            <result name="success" type="tiles">G0608</result>
+        </action>
+
+        <action name="OutsideIncomingSettingView"
+            class="com.ntt.smartpbx.action.OutsideIncomingSettingViewAction">
+            <result name="success" type="tiles">G0701</result>
+            <result name="input" type="tiles">G0701</result>
+            <result name="search" type="tiles">G0701</result>
+            <result name="next" type="tiles">G0701</result>
+            <result name="previous" type="tiles">G0701</result>
+
+            <result name="update" type="redirectAction">
+                <param name="actionName">OutsideIncomingSettingUpdate</param>
+                <param name="outsideIncomingInfoId">${outsideIncomingInfoId}</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+
+            <result name="insert" type="redirectAction">
+                <param name="actionName">OutsideIncomingSettingAdd</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+            <result name="delete" type="redirectAction">
+                <param name="actionName">OutsideIncomingSettingDelete</param>
+                <param name="outsideIncomingInfoId">${outsideIncomingInfoId}</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">OutsideOutgoingSettingView</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+            <result name="export" type="csv"></result>
+        </action>
+
+        <action name="OutsideIncomingSettingAdd"
+            class="com.ntt.smartpbx.action.OutsideIncomingSettingAddAction">
+            <result name="success" type="tiles">G0702</result>
+            <result name="input" type="tiles">G0702</result>
+            <result name="search" type="tiles">G0702</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">OutsideIncomingSettingAddFinish</param>
+                <param name="outsideIncomingInfoId">${outsideIncomingInfoId}</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+        </action>
+
+        <action name="OutsideIncomingSettingAddFinish"
+            class="com.ntt.smartpbx.action.OutsideIncomingSettingAddFinishAction">
+            <result name="success" type="tiles">G0703</result>
+        </action>
+
+        <action name="OutsideIncomingSettingUpdate"
+            class="com.ntt.smartpbx.action.OutsideIncomingSettingUpdateAction">
+            <result name="success" type="tiles">G0704</result>
+            <result name="input" type="tiles">G0704</result>
+            <result name="search" type="tiles">G0704</result>
+            <result name="update" type="redirectAction">
+                <param name="actionName">OutsideIncomingSettingUpdateFinish</param>
+                <param name="outsideIncomingInfoId">${outsideIncomingInfoId}</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+        </action>
+
+        <action name="OutsideIncomingSettingUpdateFinish"
+            class="com.ntt.smartpbx.action.OutsideIncomingSettingUpdateFinishAction">
+            <result name="success" type="tiles">G0705</result>
+        </action>
+
+        <action name="OutsideIncomingSettingDelete"
+            class="com.ntt.smartpbx.action.OutsideIncomingSettingDeleteAction">
+            <result name="success" type="tiles">G0706</result>
+            <result name="input" type="tiles">G0706</result>
+            <result name="delete" type="redirectAction">
+                <param name="actionName">OutsideIncomingSettingDeleteFinish</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+        </action>
+
+        <action name="OutsideIncomingSettingDeleteFinish"
+            class="com.ntt.smartpbx.action.OutsideIncomingSettingDeleteFinishAction">
+            <result type="tiles">G0707</result>
+        </action>
+
+        <action name="OutsideOutgoingSettingView"
+            class="com.ntt.smartpbx.action.OutsideOutgoingSettingViewAction">
+            <result name="success" type="tiles">G0801</result>
+            <result name="input" type="tiles">G0801</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">OutsideOutgoingSetting</param>
+                <param name="outsideCallSendingInfoId">${outsideCallSendingInfoId}</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+            <result name="next" type="tiles">G0801</result>
+            <result name="previous" type="tiles">G0801</result>
+            <result name="search" type="tiles">G0801</result>
+            <result name="update" type="tiles">G0801</result>
+            <result name="update_change" type="redirect">Top</result>
+            <result name="export" type="csv"></result>
+        </action>
+        <action name="OutsideOutgoingSetting"
+            class="com.ntt.smartpbx.action.OutsideOutgoingSettingAction">
+            <result name="success" type="tiles">G0802</result>
+            <result name="search" type="tiles">G0802</result>
+            <result name="input" type="tiles">G0802</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">OutsideOutgoingSettingFinish</param>
+                <param name="outsideCallSendingInfoId">${outsideCallSendingInfoId}</param>
+                <param name="tutorial">${tutorial}</param>
+            </result>
+        </action>
+
+        <action name="OutsideOutgoingSettingFinish"
+            class="com.ntt.smartpbx.action.OutsideOutgoingSettingFinishAction">
+            <result name="success" type="tiles">G0803</result>
+        </action>
+        <action name="ExtensionSettingView"
+            class="com.ntt.smartpbx.action.ExtensionSettingViewAction">
+            <result name="success" type="tiles">G0901</result>
+            <result name="input" type="tiles">G0901</result>
+            <result name="search" type="tiles">G0901</result>
+            <result name="next" type="tiles">G0901</result>
+            <result name="previous" type="tiles">G0901</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">ExtensionSettingUpdate</param>
+                <param name="extensionNumberInfoId">${extensionNumberInfoId}</param>
+            </result>
+            <result name="export" type="csv"></result>
+        </action>
+
+        <action name="ExtensionSettingUpdate"
+            class="com.ntt.smartpbx.action.ExtensionSettingUpdateAction">
+            <result name="success" type="tiles">G0902</result>
+            <result name="input" type="tiles">G0902</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">ExtensionSettingUpdateFinish</param>
+                <param name="extensionNumberInfoId">${extensionNumberInfoId}</param>
+            </result>
+        </action>
+
+        <action name="ExtensionSettingUpdateFinish"
+            class="com.ntt.smartpbx.action.ExtensionSettingUpdateFinishAction">
+            <result name="success" type="tiles">G0903</result>
+        </action>
+
+        <action name="CallRegulationSetting"
+            class="com.ntt.smartpbx.action.CallRegulationSettingAction">
+            <result name="success" type="tiles">G1001</result>
+            <result name="input" type="tiles">G1001</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">CallRegulationSettingFinish</param>
+                <param name="callRegulationInfoId">${callRegulationInfoId}</param>
+            </result>
+        </action>
+
+        <action name="CallRegulationSettingFinish"
+            class="com.ntt.smartpbx.action.CallRegulationSettingFinishAction">
+            <result name="success" type="tiles">G1002</result>
+            <result name="search" type="tiles">G1002</result>
+        </action>
+
+        <action name="CallHistory" class="com.ntt.smartpbx.action.CallHistoryAction">
+            <result name="success" type="tiles">G1101</result>
+            <result name="input" type="tiles">G1101</result>
+            <result name="search" type="tiles">G1101</result>
+            <result name="next" type="tiles">G1101</result>
+            <result name="previous" type="tiles">G1101</result>
+        </action>
+
+        <action name="TrafficReportView" class="com.ntt.smartpbx.action.TrafficReportViewAction">
+            <result name="success" type="tiles">G1201</result>
+            <result name="search" type="tiles">G1201</result>
+            <result name="next" type="tiles">G1201</result>
+            <result name="previous" type="tiles">G1201</result>
+            <!-- Step2.6 START #2014 - #2068の取り消し -->
+            <result name="change" type="redirectAction">
+                <param name="actionName">TrafficReportGraph</param>
+                <param name="startTimeString">${startTimeString}</param>
+                <param name="endTimeString">${endTimeString}</param>
+            </result>
+            <!-- Step2.6 END #2014 - #2068の取り消し -->
+            <result name="input" type="tiles">G1201</result>
+        </action>
+        <!-- Step2.6 START #2014 - #2068の取り消し -->
+        <action name="TrafficReportGraph" class="com.ntt.smartpbx.action.TrafficReportGraphAction">
+            <result name="success" type="tiles">G1202</result>
+            <!-- START #616 -->
+            <result name="error" type="tiles">G9001</result>
+            <!-- END #616 -->
+            <result name="input" type="tiles">G1202</result>
+        </action>
+        <!-- Step2.6 END #2014 - #2068の取り消し -->
+
+        <action name="PBXInfoView" class="com.ntt.smartpbx.action.PBXInfoViewAction">
+            <result name="success" type="tiles">G1301</result>
+            <result name="input" type="tiles">G1301</result>
+            <result name="search" type="tiles">G1301</result>
+            <result name="next" type="tiles">G1301</result>
+            <result name="previous" type="tiles">G1301</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">PBXDetailInfo</param>
+                <param name="extensionNumberInfoId">${extensionNumberInfoId}</param>
+            </result>
+        </action>
+
+        <action name="PBXDetailInfo" class="com.ntt.smartpbx.action.PBXDetailInfoAction">
+            <result type="tiles">G1302</result>
+        </action>
+
+        <action name="AbsenceSetting" class="com.ntt.smartpbx.action.AbsenceSettingAction">
+            <result name="success" type="tiles">G1401</result>
+            <result name="input" type="tiles">G1401</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">AbsenceSettingFinish</param>
+            </result>
+        </action>
+
+        <action name="AbsenceSettingFinish"
+            class="com.ntt.smartpbx.action.AbsenceSettingFinishAction">
+            <result name="success" type="tiles">G1402</result>
+        </action>
+
+        <action name="NNumberSearch" class="com.ntt.smartpbx.action.NNumberSearchAction">
+            <result name="success" type="tiles">G1501</result>
+            <result name="search" type="tiles">G1501</result>
+            <result name="next" type="tiles">G1501</result>
+            <result name="previous" type="tiles">G1501</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">Top</param>
+            </result>
+            <!-- Start step1.7 g1501-03 -->
+            <result name="view" type="redirectAction">
+                <param name="actionName">OfficeConstructInfoSettingView</param>
+                <param name="nNumberInfoId">%{nNumberSelect}</param>
+            </result>
+            <result name="export" type="csv"></result>
+            <!-- End step1.7 g1501-03 -->
+            <result name="input" type="tiles">G1501</result>
+            <!-- Start step2.5 #ADD-step2.5-01 -->
+            <result name="view2" type="redirectAction">
+                <param name="actionName">OpenGuidanceOutput</param>
+                <param name="nNumberInfoId">${nNumberInfoId}</param>
+            </result>
+            <!-- End step2.5 #ADD-step2.5-01 -->
+        </action>
+
+        <!-- Start Step 2.5 #ADD-step2.5-02 -->
+        <action name="OpenGuidanceOutput" class="com.ntt.smartpbx.action.OpenGuidanceOutputAction">
+            <result name="success" type="tiles">G2001</result>
+            <result name="input" type="tiles">G2001</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">OpenGuidanceOutputFinish</param>
+                <param name="nNumberInfoId">${nNumberInfoId}</param>
+            </result>
+        </action>
+
+        <action name="OpenGuidanceOutputFinish"
+            class="com.ntt.smartpbx.action.OpenGuidanceOutputFinishAction">
+            <result name="success" type="tiles">G2002</result>
+        </action>
+        <!-- End Step 2.5 #ADD-step2.5-02 -->
+
+        <action name="VMInfoConfirm" class="com.ntt.smartpbx.action.VMInfoConfirmAction">
+            <result name="input" type="tiles">G1601</result>
+            <result name="success" type="tiles">G1601</result>
+            <result name="search" type="tiles">G1601</result>
+            <result name="next" type="tiles">G1601</result>
+            <result name="previous" type="tiles">G1601</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">VMInfoUsageConfirm</param>
+                <param name="srcVmInfoId">%{srcId}</param>
+                <param name="dstVmInfoId">%{dstId}</param>
+            </result>
+            <result name="reserve" type="redirectAction">
+                <param name="actionName">VPNTransferReservation</param>
+                <param name="vmInfoIdBefore">%{vmInfoIdBefore}</param>
+                <param name="vmInfoIdAfter">%{vmInfoIdAfter}</param>
+            </result>
+            <!-- Step3.0 START #ADD-02 -->
+            <result name="back" type="redirectAction">
+                <param name="actionName">Top</param>
+            </result>
+            <!-- Step3.0 END #ADD-02 -->
+        </action>
+
+        <!-- Start step2.5 #ADD-step2.5-04 -->
+        <action name="ExtensionServerSettingReflectView"
+            class="com.ntt.smartpbx.action.ExtensionServerSettingReflectViewAction">
+            <result name="input" type="tiles">G2101</result>
+            <result name="success" type="tiles">G2101</result>
+            <result name="search" type="tiles">G2101</result>
+            <result name="next" type="tiles">G2101</result>
+            <result name="previous" type="tiles">G2101</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">ExtensionServerSettingReflectConfirm</param>
+            </result>
+        </action>
+        <!-- End step2.5 #ADD-step2.5-04 -->
+        <!--Start step2.5 #ADD-step2.5-05 -->
+        <action name="ExtensionServerSettingReflectConfirm"
+            class="com.ntt.smartpbx.action.ExtensionServerSettingReflectConfirmAction">
+            <result name="success" type="tiles">G2102</result>
+            <result name="input" type="tiles">G2102</result>
+            <result name="back" type="redirectAction">
+                <param name="actionName">ExtensionServerSettingReflectView</param>
+            </result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">ExtensionServerSettingReflectFinish</param>
+            </result>
+        </action>
+        <!--End step2.5 #ADD-step2.5-05 -->
+        <!--Start step2.5 #ADD-step2.5-06 -->
+        <action name="ExtensionServerSettingReflectFinish"
+            class="com.ntt.smartpbx.action.ExtensionServerSettingReflectFinishAction">
+            <result name="success" type="tiles">G2103</result>
+        </action>
+        <!--End step2.5 #ADD-step2.5-06 -->
+        <action name="VMInfoUsageConfirm" class="com.ntt.smartpbx.action.VMInfoUsageConfirmAction">
+            <result type="tiles">G1602</result>
+        </action>
+
+        <!-- //Start step2.0 G1603 -->
+        <action name="VPNTransferReservation"
+            class="com.ntt.smartpbx.action.VPNTransferReservationAction">
+            <result name="success" type="tiles">G1603</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">VPNTransferReservationFinish</param>
+                <param name="vmInfoIdBefore">%{vmInfoIdBefore}</param>
+                <param name="vmInfoIdAfter">${vmInfoIdAfter}</param>
+            </result>
+            <result name="input" type="tiles">G1603</result>
+        </action>
+        <!-- //End step2.0 G1603 -->
+
+        <!-- //Start step2.0 G1604 -->
+        <action name="VPNTransferReservationFinish"
+            class="com.ntt.smartpbx.action.VPNTransferReservationFinishAction">
+            <result name="success" type="tiles">G1604</result>
+        </action>
+        <!-- //End step2.0 G1604 -->
+
+        <action name="InformationSetting" class="com.ntt.smartpbx.action.InformationSettingAction">
+            <result name="success" type="tiles">G1701</result>
+            <result name="input" type="tiles">G1701</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">InformationSettingFinish</param>
+            </result>
+        </action>
+
+        <action name="InformationSettingFinish"
+            class="com.ntt.smartpbx.action.InformationSettingFinishAction">
+            <result name="success" type="tiles">G1702</result>
+        </action>
+
+        <!-- Account View Info Start -->
+        <action name="AccountInfoView"
+            class="com.ntt.smartpbx.action.user.AccountInfoViewAction">
+            <result name="success" type="tiles">G1801</result>
+            <result name="input" type="tiles">G1801</result>
+            <result name="next" type="tiles">G1801</result>
+            <result name="previous" type="tiles">G1801</result>
+            <result name="search" type="tiles">G1801</result>
+            <result name="resume" type="tiles">G1801</result>
+            <result name="update" type="redirectAction">
+                <param name="actionName">AccountLockRelease</param>
+                <param name="accountInfoId">${accountInfoId}</param>
+            </result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">AccountPasswordUpdate</param>
+                <param name="accountInfoId">${accountInfoId}</param>
+                <!-- Start 1.x #798 -->
+                <!-- <param name="tutorial">${tutorial}</param> -->
+                <!-- End 1.x #798 -->
+            </result>
+            <result name="delete" type="redirectAction">
+                <param name="actionName">AccountDelete</param>
+                <param name="accountInfoId">${accountInfoId}</param>
+            </result>
+        </action>
+
+        <action name="AccountRegister"
+            class="com.ntt.smartpbx.action.user.AccountRegisterAction">
+            <result name="success" type="tiles">G1802</result>
+            <result name="input" type="tiles">G1802</result>
+            <result name="insert" type="redirectAction">
+                <param name="actionName">AccountRegisterFinish</param>
+                <param name="loginId">${loginId}</param>
+            </result>
+        </action>
+
+        <action name="AccountRegisterFinish"
+            class="com.ntt.smartpbx.action.user.AccountRegisterFinishAction">
+            <result name="success" type="tiles">G1803</result>
+        </action>
+
+        <action name="AccountLockRelease"
+            class="com.ntt.smartpbx.action.user.AccountLockReleaseAction">
+            <result name="success" type="tiles">G1804</result>
+            <result name="input" type="tiles">G1804</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">AccountLockReleaseFinish</param>
+            </result>
+        </action>
+
+        <action name="AccountLockReleaseFinish"
+            class="com.ntt.smartpbx.action.user.AccountLockReleaseFinishAction">
+            <result name="success" type="tiles">G1805</result>
+        </action>
+
+        <action name="AccountPasswordUpdate"
+            class="com.ntt.smartpbx.action.user.AccountPasswordUpdateAction">
+            <result name="success" type="tiles">G1806</result>
+            <result name="input" type="tiles">G1806</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">AccountPasswordUpdateFinish</param>
+                <param name="accountInfoId">${accountInfoId}</param>
+            </result>
+        </action>
+
+        <action name="AccountPasswordUpdateFinish"
+            class="com.ntt.smartpbx.action.user.AccountPasswordUpdateFinishAction">
+            <result type="tiles">G1807</result>
+        </action>
+
+        <action name="AccountDelete" class="com.ntt.smartpbx.action.user.AccountDeleteAction">
+            <result name="success" type="tiles">G1808</result>
+            <result name="input" type="tiles">G1808</result>
+            <result name="delete" type="redirectAction">
+                <param name="actionName">AccountDeleteFinish</param>
+            </result>
+        </action>
+
+        <action name="AccountDeleteFinish"
+            class="com.ntt.smartpbx.action.user.AccountDeleteFinishAction">
+            <result name="success" type="tiles">G1809</result>
+        </action>
+
+        <!-- //Start step1.7 G1901 -->
+        <action name="OfficeConstructInfoSettingView"
+            class="com.ntt.smartpbx.action.OfficeConstructInfoSettingViewAction">
+            <result name="success" type="tiles">G1901</result>
+            <result name="insert" type="redirectAction">
+                <param name="actionName">OfficeConstructInfoSettingAdd</param>
+                <param name="nNumberInfoId">%{nNumberInfoId}</param>
+            </result>
+            <result name="update" type="redirectAction">
+                <param name="actionName">OfficeConstructInfoSettingUpdate</param>
+                <param name="nNumberInfoId">%{nNumberInfoId}</param>
+                <param name="officeConstructInfoId">${officeConstructId}</param>
+            </result>
+            <result name="delete" type="redirectAction">
+                <param name="actionName">OfficeConstructInfoSettingDelete</param>
+                <param name="nNumberInfoId">%{nNumberInfoId}</param>
+                <param name="officeConstructInfoId">${officeConstructId}</param>
+            </result>
+            <result name="view" type="redirectAction">
+                <param name="actionName">OfficeConstructInfoSettingConfirm</param>
+                <param name="nNumberInfoId">%{nNumberInfoId}</param>
+                <param name="officeConstructInfoId">${officeConstructId}</param>
+            </result>
+            <result name="input" type="tiles">G1901</result>
+        </action>
+        <!-- //End step1.7 G1901 -->
+
+        <!-- //START step1.7 G1902 -->
+        <action name="OfficeConstructInfoSettingAdd"
+            class="com.ntt.smartpbx.action.OfficeConstructInfoSettingAddAction">
+            <result name="success" type="tiles">G1902</result>
+            <result name="insert" type="redirectAction">
+                <param name="actionName">OfficeConstructInfoSettingAddFinish</param>
+                <param name="nNumberInfoId">%{nNumberInfoId}</param>
+                <param name="officeConstructInfoId">${officeConstructInfoId}</param>
+            </result>
+            <result name="input" type="tiles">G1902</result>
+        </action>
+        <!-- //END step1.7 G1902 -->
+
+        <!-- //START step1.7 G1903 -->
+        <action name="OfficeConstructInfoSettingAddFinish"
+            class="com.ntt.smartpbx.action.OfficeConstructInfoSettingAddFinishAction">
+            <result name="success" type="tiles">G1903</result>
+        </action>
+        <!-- //END step1.7 G1903 -->
+
+        <!-- //START step1.7 G1904 -->
+        <action name="OfficeConstructInfoSettingUpdate"
+            class="com.ntt.smartpbx.action.OfficeConstructInfoSettingUpdateAction">
+            <result name="success" type="tiles">G1904</result>
+            <result name="update" type="redirectAction">
+                <param name="actionName">OfficeConstructInfoSettingUpdateFinish</param>
+                <param name="nNumberInfoId">%{nNumberInfoId}</param>
+                <param name="officeConstructInfoId">${officeConstructInfoId}</param>
+            </result>
+            <result name="input" type="tiles">G1904</result>
+        </action>
+        <!-- //END step1.7 G1904 -->
+
+        <!-- //START step1.7 G1905 -->
+        <action name="OfficeConstructInfoSettingUpdateFinish"
+            class="com.ntt.smartpbx.action.OfficeConstructInfoSettingUpdateFinishAction">
+            <result name="success" type="tiles">G1905</result>
+        </action>
+        <!-- //END step1.7 G1905 -->
+
+        <!-- //Start step1.7 G1906 -->
+        <action name="OfficeConstructInfoSettingDelete"
+            class="com.ntt.smartpbx.action.OfficeConstructInfoSettingDeleteAction">
+            <result name="success" type="tiles">G1906</result>
+            <result name="delete" type="redirectAction">
+                <param name="actionName">OfficeConstructInfoSettingDeleteFinish</param>
+                <param name="nNumberInfoId">%{nNumberInfoId}</param>
+            </result>
+            <result name="input" type="tiles">G1906</result>
+        </action>
+        <!-- //End step1.7 G1906 -->
+
+        <!-- //Start step1.7 G1907 -->
+        <action name="OfficeConstructInfoSettingDeleteFinish"
+            class="com.ntt.smartpbx.action.OfficeConstructInfoSettingDeleteFinishAction">
+            <result name="success" type="tiles">G1907</result>
+        </action>
+        <!-- //End step1.7 G1907 -->
+
+        <!-- //Start step1.7 G1908 -->
+        <action name="OfficeConstructInfoSettingConfirm"
+            class="com.ntt.smartpbx.action.OfficeConstructInfoSettingConfirmAction">
+            <result name="success" type="tiles">G1908</result>
+        </action>
+        <!-- //End step1.7 G1908 -->
+
+        <!-- Start step2.6 #ADD-2.6-02-->
+        <action name="OutsideInfoSearch"
+            class="com.ntt.smartpbx.action.OutsideInfoSearchAction">
+            <result name="success" type="tiles">G2201</result>
+            <result name="input" type="tiles">G2201</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">Top</param>
+            </result>
+        </action>
+        <!-- End step2.6 #ADD-2.6-02 -->
+
+        <!-- Step2.8 START ADD-2.8-01 -->
+        <action name="MacAddressInfo"
+            class="com.ntt.smartpbx.action.MacAddressInfoAction">
+            <result name="success" type="tiles">G2301</result>
+            <result name="export" type="csv"></result>
+        </action>
+        <!-- Step2.8 END ADD-2.8-01 -->
+
+        <!-- Step2.9 START ADD-2.9-1-->
+        <action name="MusicOnHoldSetting"
+            class="com.ntt.smartpbx.action.MusicOnHoldSettingAction">
+            <result name="success" type="tiles">G2401</result>
+            <result name="input" type="tiles">G2401</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">MusicOnHoldConfirm</param>
+                <param name="type">${type}</param>
+                <param name="musicHoldFlag">${musicHoldFlag}</param>
+                <param name="lastUpdateTimeMusicInfo">${lastUpdateTimeMusicInfo}</param>
+                <param name="lastUpdateTimeNNumberInfo">${lastUpdateTimeNNumberInfo}</param>
+                <param name="musicInfoId">${musicInfoId}</param>
+            </result>
+            <result name="export" type="stream">
+                <param name="contentType">audio/x-gsm; charset=UTF-8</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename=${fileExportFileName}</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+        <!-- Step2.9 START CR01 -->
+        <action name="MusicOnHoldConfirm"
+            class="com.ntt.smartpbx.action.MusicOnHoldConfirmAction">
+            <result name="success" type="tiles">G2402</result>
+            <result name="input" type="tiles">G2402</result>
+            <result name="change" type="redirectAction">
+                <param name="actionName">MusicOnHoldFinish</param>
+                <param name="type">${type}</param>
+                <param name="musicHoldFlag">${musicHoldFlag}</param>
+            </result>
+        </action>
+        <action name="MusicOnHoldFinish"
+            class="com.ntt.smartpbx.action.MusicOnHoldFinishAction">
+            <result name="success" type="tiles">G2403</result>
+        </action>
+
+        <!-- Account View Info End -->
+
+        <action name="UnknownError" class="com.ntt.smartpbx.action.UnknownErrorAction">
+            <result name="success" type="tiles">G9001</result>
+        </action>
+
+    </package>
+    <package name="chart" namespace="/" extends="jfreechart-default">
+        <interceptors>
+            <interceptor name="languageInterceptor"
+                class="com.ntt.smartpbx.interceptor.LanguageInterceptor"></interceptor>
+
+            <interceptor-stack name="secureDefaultStack">
+                <interceptor-ref name="languageInterceptor" />
+                <interceptor-ref name="defaultStack">
+                    <param name="exception.logEnabled">true</param>
+                    <param name="exception.logLevel">ERROR</param>
+                    <!-- Step2.6 START #2017 -->
+                    <!--<param name="params.excludeParams">(.*\.|^|.*|\[('|"))(c|C)lass(\.|('|")]|\[).*,^dojo\..*,^struts\..*,^session\..*,^request\..*,^application\..*,^servlet(Request|Response)\..*,^parameters\..*,^action:.*,^method:.*</param> -->
+                    <!-- Step2.6 END #2017 -->
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <action name="chart" class="com.ntt.smartpbx.action.TrafficReportGraphAction">
+            <result name="view" type="chart">
+                <param name="width">800</param>
+                <param name="height">350</param>
+            </result>
+        </action>
+    </package>
+</struts>
+<!--(C) NTT Communications  2015  All Rights Reserved -->

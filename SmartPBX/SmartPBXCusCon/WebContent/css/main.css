@@ -1,0 +1,1383 @@
+/* ==========================================================================
+   HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
+   ========================================================================== */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+
+body {
+    /*font-size: 1em;*/
+    font-size:12px;
+    line-height: 1.4;
+}
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+img {
+    vertical-align: middle;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+       only screen and (min-resolution: 144dpi) {
+
+}
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 100%;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* ==========================================================================
+   Print styles
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        box-shadow:none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links for images, or javascript/internal links
+     */
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+
+@font-face {
+    font-family: 'OpenSansLight';
+    src: url('../fonts/OpenSans-Light-webfont.eot');
+    src: url('../fonts/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-Light-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Light-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-Light-webfont.svg#OpenSansLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'OpenSansRegular';
+    src: url('../fonts/OpenSans-Regular-webfont.eot');
+    src: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-Regular-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-Regular-webfont.svg#OpenSansRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'OpenSansSemibold';
+    src: url('../fonts/OpenSans-Semibold-webfont.eot');
+    src: url('../fonts/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-Semibold-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Semibold-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-Semibold-webfont.svg#OpenSansSemibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'OpenSansBold';
+    src: url('../fonts/OpenSans-Bold-webfont.eot');
+    src: url('../fonts/OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-Bold-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Bold-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-Bold-webfont.svg#OpenSansBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+    background-color: #fff;
+    text-align: center;
+}
+
+.wrapper {
+    width:1200px;
+    background: url("../images/ecloud/generic-background.png") no-repeat;
+    margin: 0 auto;
+    background-position: 0px 0px;
+    min-height: 700px;
+    text-align: left;
+    padding-top:100px;
+}
+
+
+p {
+    color: #4d4e4e;
+}
+
+a {
+    color: #0072a9;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+.content {
+    width:960px;
+    margin: auto;
+    padding-bottom:40px;
+    
+}
+/* Tabs */
+.tabs-nav {
+	margin: 0;
+	padding: 0;
+	height: 23px;
+	list-style:none;
+    font-family: 'OpenSansSemibold', Arial, sans-serif;
+}
+
+.tabs-nav li {
+	position:relative;
+	display:inline-block;
+	vertical-align:middle;
+	color:#fff;
+	font-size:12px;
+	-moz-box-orient:vertical;
+	cursor:pointer;
+	float: left;
+}
+
+.tabs-nav li {
+	border-left:none;
+    
+}
+.tabs-nav li:last-child {
+	margin-right: 0px;
+}
+
+.tabs-nav li a, .tabs-nav li span {
+	padding:3px 20px 3px 20px;
+	color:#fff;
+	background-color: #779bb1;
+	border-radius:8px 8px 0 0;
+	display:block;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+}
+.tabs-nav li:last-child a{
+    border-right: 1px solid white;
+}
+.tabs-nav li a:hover,
+.tabs-nav li span:hover {
+	color: #f5d437;
+	background-color:#094b7c;
+}
+
+.tabs-nav li a:hover,
+.tabs-nav li span:hover,
+.tabs-nav li.selected span,
+.tabs-nav li.selected a {
+	background-image: url("../images/nav-hover-arrow.png");
+	background-repeat: no-repeat;
+	background-position: center 18px;
+}
+#nav ul li a:hover {
+	background-image: none;
+}
+.tabs-nav > li.selected > a,.tabs-nav li.selected span {
+	color:#fdd000;
+}
+
+
+.tabs-nav li:last-child {
+	border:none;
+}
+
+.tab {
+    background-color: #fff;
+    padding:10px;
+    border-top: 2px solid #fdd000;
+}
+
+/* Table stuff */
+.hidden-data {
+    display: none;
+}
+
+.styled-table {
+    font-weight: normal;
+    width:100%;
+    border-collapse: separate;
+    border-top:1px solid #e6e6e6;
+    border-left: 1px solid #4d4e4e;
+    border-right: 1px solid #4d4e4e;
+    border-bottom: 1px solid #4d4e4e;
+}
+.styled-table th, .styled-table td {
+    padding:3px 5px 3px 5px;
+}
+.styled-table th {
+  font-weight: normal;
+  background-color: #fff;
+  color: #094b7c;
+  border-left:1px solid #fff;
+  border-right: 1px solid #4d4e4e;
+  border-bottom: 1px solid #4d4e4e;
+  height: 20px;
+}
+.styled-table tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+.styled-table tr:nth-child(odd) td {
+  background-color: #e6e6e6;
+}
+.styled-table td {
+  color: #2b3437;
+  border-left:1px solid #fff;
+  border-right: 1px solid #4d4e4e;
+}
+.styled-table th:last-child,
+.styled-table td:last-child {
+    border-right:1px solid #fff;
+}
+
+.styled-table.border-top {
+  border-top: 1px solid #d1d3d3;
+}
+.styled-table td, .styled-table th {
+  text-align: center;
+}
+.clickable-rows tr:hover td,
+.styled-table tr.selected td, .styled-table tr.selected:hover td {
+  background-color: #094b7c;
+  color: #fdd000;
+}
+
+.clickable-rows tr:hover td a,
+.styled-table tr.selected td a, .styled-table tr.selected:hover td a {
+    color: #fff;
+}
+
+.en-dis-toggle {
+  width: 20px;
+  height: 20px;
+  text-indent: -99999px;
+  font-size: 0.01em;
+  cursor: default;
+  display: inline-table;
+  text-align: center;
+  background: url('../images/ecloud/sprites.png') no-repeat;
+  background-position: -100px -260px;
+}
+.en-dis-toggle.disabled {
+  background-position: -120px -260px;
+}
+/* Buttons */
+.icon-button, .icon-link, .icon, .icon-small {
+  background: url('../images/ecloud/sprites.png') no-repeat;
+  width: 20px;
+  height: 20px;
+  text-indent: -99999px;
+  font-size: 0.1em;
+  cursor: pointer;
+  margin-right: 3px;
+  display: inline-table;
+}
+.icon-button.disabled {
+  cursor: default;
+}
+.icon-button.icon-home {
+  background-position: 0px 0px;
+}
+
+.icon-button.icon-close {
+  background-position: 0px -20px;
+}
+.icon-button.icon-close:hover {
+  background-position: -20px -20px;
+}
+.icon-button.icon-close:active {
+  background-position: -40px -20px;
+}
+.icon-button.icon-close.disabled {
+  background-position: -60px -20px;
+}
+
+.icon-button.icon-help {
+  background-position: 0px -40px;
+}
+.icon-button.icon-help:hover {
+  background-position: -20px -40px;
+}
+.icon-button.icon-help:active {
+  background-position: -40px -40px;
+}
+.icon-button.icon-help.disabled {
+  background-position: -60px -40px;
+}
+.icon-button.icon-info {
+  background-position: 0px -60px;
+}
+.icon-button.icon-info:hover {
+  background-position: -20px -60px;
+}
+.icon-button.icon-info:active {
+  background-position: -40px -60px;
+}
+.icon-button.icon-info.disabled {
+  background-position: -60px -60px;
+}
+
+.icon-button.icon-configure {
+  background-position: 0px -80px;
+}
+.icon-button.icon-configure:hover {
+  background-position: -20px -80px;
+}
+.icon-button.icon-configure:active {
+  background-position: -40px -80px;
+}
+.icon-button.icon-configure.disabled {
+  background-position: -60px -80px;
+}
+/*
+.icon-button.icon-expand {
+  background-position: -140px -20px;
+}
+.icon-button.icon-collapse {
+  background-position: -140px 0px;
+}
+*/
+.icon-button.icon-add,
+.icon-button.icon-order,
+.icon-button.icon-new {
+  background-position: 0px -100px;
+}
+
+.icon-button.icon-add:hover,
+.icon-button.icon-new:hover,
+.icon-button.icon-order:hover {
+  background-position: -20px -100px;
+}
+
+.icon-button.icon-add:active,
+.icon-button.icon-new:active,
+.icon-button.icon-order:active {
+  background-position: -40px -100px;
+}
+
+.icon-button.icon-add.disabled,
+.icon-button.icon-add.readonly,
+.icon-button.icon-new.disabled,
+.icon-button.icon-new.readonly,
+.icon-button.icon-order.disabled,
+.icon-button.icon-order.readonly {
+  background-position: -60px -100px;
+}
+
+.icon-button.icon-delete {
+  background-position: 0px -120px;
+}
+.icon-button.icon-delete:hover {
+  background-position: -20px -120px;
+}
+.icon-button.icon-delete:active {
+  background-position: -40px -120px;
+}
+.icon-button.icon-delete.disabled, .icon-button.icon-delete.readonly {
+  background-position: -60px -120px;
+}
+
+.icon-button.icon-yes {
+  background-position: 0px -140px;
+}
+.icon-button.icon-yes:hover {
+  background-position: -20px -140px;
+}
+.icon-button.icon-yes:active {
+  background-position: -40px -140px;
+}
+.icon-button.icon-yes.disabled,
+.icon-button.icon-yes.readonly {
+  background-position: -60px -140px;
+}
+
+.icon-button.icon-no {
+  background-position: 0px -160px;
+}
+.icon-button.icon-no:hover {
+  background-position: -20px -160px;
+}
+.icon-button.icon-no:active {
+  background-position: -40px -160px;
+}
+.icon-button.icon-no.disabled,
+.icon-button.icon-no.readonly {
+  background-position: -60px -160px;
+}
+
+.icon-button.icon-edit {
+  background-position: 0px -180px;
+}
+.icon-button.icon-edit:hover {
+  background-position: -20px -180px;
+}
+.icon-button.icon-edit:active {
+  background-position: -40px -180px;
+}
+.icon-button.icon-edit.disabled,
+.icon-button.icon-edit.readonly {
+  background-position: -60px -180px;
+}
+
+.icon-button.icon-cancel {
+  background-position: 0px -200px;
+}
+.icon-button.icon-cancel:hover {
+  background-position: -20px -200px;
+}
+.icon-button.icon-cancel:active {
+  background-position: -40px -200px;
+}
+.icon-button.icon-cancel.disabled,
+.icon-button.icon-cancel.readonly {
+  background-position: -60px -200px;
+}
+
+.icon-button.icon-save {
+  background-position: 0px -220px;
+}
+.icon-button.icon-save:hover {
+  background-position: -20px -220px;
+}
+.icon-button.icon-save:active {
+  background-position: -40px -220px;
+}
+.icon-button.icon-save.disabled,
+.icon-button.icon-save.readonly {
+  background-position: -60px -220px;
+}
+
+.icon-button.icon-details {
+  background-position: 0px -240px;
+}
+.icon-button.icon-details:hover {
+  background-position: -20px -240px;
+}
+.icon-button.icon-details:active {
+  background-position: -40px -240px;
+}
+.icon-button.icon-details.disabled,
+.icon-button.icon-details.readonly {
+  background-position: -60px -240px;
+}
+
+.icon-button.icon-data {
+  background-position: 0px -260px;
+}
+.icon-button.icon-data:hover {
+  background-position: -20px -260px;
+}
+.icon-button.icon-data:active {
+  background-position: -40px -260px;
+}
+.icon-button.icon-data.disabled,
+.icon-button.icon-data.readonly {
+  background-position: -60px -260px;
+}
+.icon-button.icon-upload {
+  background-position: 0px -280px;
+}
+.icon-button.icon-upload:hover {
+  background-position: -20px -280px;
+}
+.icon-button.icon-upload:active {
+  background-position: -40px -280px;
+}
+.icon-button.icon-upload.disabled,
+.icon-button.icon-upload.readonly {
+  background-position: -60px -280px;
+}
+
+.icon-button.icon-download {
+  background-position: 0px -300px;
+}
+.icon-button.icon-download:hover {
+  background-position: -20px -300px;
+}
+.icon-button.icon-download:active {
+  background-position: -40px -300px;
+}
+.icon-button.icon-download.disabled,
+.icon-button.icon-download.readonly {
+  background-position: -60px -300px;
+}
+/*
+.icon-button.icon-acknowledge {
+  background-position: 0px -140px;
+}
+.icon-button.icon-acknowledge:hover {
+  background-position: -20px -140px;
+}
+.icon-button.icon-acknowledge:active {
+  background-position: -40px -140px;
+}
+.icon-button.icon-acknowledge.disabled,
+.icon-button.icon-acknowledge.readonly {
+  background-position: -60px -140px;
+}
+*/
+
+.icon-button.icon-down {
+  background-position: -80px 0px;
+}
+.icon-button.icon-down:hover {
+  background-position: -100px 0px;
+}
+.icon-button.icon-down:active {
+  background-position: -120px 0px;
+}
+.icon-button.icon-down.disabled,
+.icon-button.icon-down.readonly {
+  background-position: -140px 0px;
+}
+
+.icon-button.icon-up {
+  background-position: -80px -20px;
+}
+.icon-button.icon-up:hover {
+  background-position: -100px -20px;
+}
+.icon-button.icon-up:active {
+  background-position: -120px -20px;
+}
+.icon-button.icon-up.disabled,
+.icon-button.icon-up.readonly {
+  background-position: -140px -20px;
+}
+
+.icon-button.icon-left {
+  background-position: -80px -40px;
+}
+.icon-button.icon-left:hover {
+  background-position: -100px -40px;
+}
+.icon-button.icon-left:active {
+  background-position: -120px -40px;
+}
+.icon-button.icon-left.disabled,
+.icon-button.icon-left.readonly {
+  background-position: -140px -40px;
+}
+
+.icon-button.icon-right {
+  background-position: -80px -60px;
+}
+.icon-button.icon-right:hover {
+  background-position: -100px -60px;
+}
+.icon-button.icon-right:active {
+  background-position: -120px -60px;
+}
+.icon-button.icon-right.disabled,
+.icon-button.icon-right.readonly {
+  background-position: -140px -60px;
+}
+
+/*.icon-button.icon-loading {
+  background-position: -80px -80px;
+}
+.icon-button.icon-loading:hover {
+  background-position: -100px -80px;
+}
+.icon-button.icon-loading:active {
+  background-position: -120px -80px;
+}
+.icon-button.icon-loading.disabled,
+.icon-button.icon-loading.readonly {
+  background-position: -140px -80px;
+}*/
+
+.icon-button.icon-global-backup {
+  background-position: -80px -280px;
+}
+.icon-button.icon-global-backup:hover {
+  background-position: -100px -280px;
+}
+.icon-button.icon-global-backup:active {
+  background-position: -120px -280px;
+}
+.icon-button.icon-global-backup.disabled,
+.icon-button.icon-global-backup.readonly {
+  background-position: -140px -280px;
+}
+
+.icon-button.icon-network {
+  background-position: -80px -300px;
+}
+.icon-button.icon-network:hover {
+  background-position: -100px -300px;
+}
+.icon-button.icon-network:active {
+  background-position: -120px -300px;
+}
+.icon-button.icon-network.disabled,
+.icon-button.icon-network.readonly {
+  background-position: -140px -300px;
+}
+
+/* VM Buttons */
+.icon-button.icon-power {
+  background-position: -160px -200px;
+}
+.icon-button.icon-power:hover {
+  background-position: -180px -200px;
+}
+.icon-button.icon-power:active {
+  background-position: -200px -200px;
+}
+.icon-button.icon-power.disabled,
+.icon-button.icon-power.readonly {
+  background-position: -220px -200px;
+}
+
+.icon-button.icon-console {
+  background-position: -160px -220px;
+}
+.icon-button.icon-console:hover {
+  background-position: -180px -220px;
+}
+.icon-button.icon-console:active {
+  background-position: -200px -220px;
+}
+.icon-button.icon-console.disabled,
+.icon-button.icon-console.readonly {
+  background-position: -220px -220px;
+}
+
+.icon-button.icon-restart {
+  background-position: -160px -240px;
+}
+.icon-button.icon-restart:hover {
+  background-position: -180px -240px;
+}
+.icon-button.icon-restart:active {
+  background-position: -200px -240px;
+}
+.icon-button.icon-restart.disabled,
+.icon-button.icon-restart.readonly {
+  background-position: -220px -240px;
+}
+
+.icon-button.icon-reset {
+  background-position: -160px -260px;
+}
+.icon-button.icon-reset:hover {
+  background-position: -180px -260px;
+}
+.icon-button.icon-reset:active {
+  background-position: -200px -260px;
+}
+.icon-button.icon-reset.disabled,
+.icon-button.icon-reset.readonly {
+  background-position: -220px -260px;
+}
+
+.icon-button.icon-pause {
+  background-position: -160px -280px;
+}
+.icon-button.icon-pause:hover {
+  background-position: -180px -280px;
+}
+.icon-button.icon-pause:active {
+  background-position: -200px -280px;
+}
+.icon-button.icon-pause.disabled,
+.icon-button.icon-pause.readonly {
+  background-position: -220px -280px;
+}
+
+.icon-button.icon-copy {
+  background-position: -160px -300px;
+}
+.icon-button.icon-copy:hover {
+  background-position: -180px -300px;
+}
+.icon-button.icon-copy:active {
+  background-position: -200px -300px;
+}
+.icon-button.icon-copy.disabled,
+.icon-button.icon-copy.readonly {
+  background-position: -220px -300px;
+}
+
+/* Status indicator/button */
+.icon {
+    cursor: default;
+}
+
+.icon-good {
+    background-position: -80px -100px;
+}
+.icon-good-jp {
+    background-position: -80px -140px;
+}
+.icon-good-text {
+    background-position: -100px -140px;
+}
+
+.icon-alert {
+    background-position: -100px -100px;
+}
+.icon-error {
+    background-position:  -120px -100px;
+}
+.icon-unknown {
+    background-position:  -140px -100px;
+}
+.icon-required {
+    background-position: -120px -140px;
+}
+
+.icon-loading-dark {
+  background-position: -80px -80px;
+}
+.icon-loading-light {
+  background-position: -100px -80px;
+}
+
+
+.icon-bars {
+    width: 8px;
+    height: 10px;
+    background-position: -20px 0px;
+}
+a .icon-bars {
+    cursor: pointer;
+    margin-top:2px;
+}
+
+.icon-small {
+    width: 16px;
+    height: 16px;
+}
+.icon-small.icon-good {
+    background-position: -80px -120px;
+}
+
+.icon-small.icon-alert {
+    background-position: -100px -120px;
+}
+.icon-small.icon-error {
+    background-position:  -120px -120px;
+}
+.icon-small.icon-unknown {
+    background-position:  -140px -120px;
+}
+
+
+/* Widget stuff */
+/* Box model! 5px padding + 1px border too! */
+.big-ui-widget,
+.help-ui-widget {
+    width:448px;
+    float: left;
+    margin: 10px;
+}
+
+.help-ui-widget {
+  height:448px;
+}
+.small-ui-widget {
+    width:208px;
+    float: left;
+    margin: 10px;
+}
+
+
+/* Dialog page */
+.inner {
+    xpadding:10px;
+}
+#inner2 {
+    column-count: 2;
+    column-rule: 1em solid black;
+    -webkit-column-count: 2;
+    -webkit-column-rule: 0px;
+    -moz-column-count: 2;
+    -moz-column-rule: 0px;
+}
+
+.inner form {
+    padding:10px;
+}
+form label {
+    float:left;
+}
+form input {
+    clear:both;
+    float:left;
+}
+form td {
+    padding: 3px 5px 3px 5px;
+}
+
+form table, form td, form th {
+    border:none;
+    background-color: none !important;
+    text-align: left;
+}
+form table tr:nth-child(odd) td,
+form table tr:nth-child(even) td {
+    background-color: transparent !important;
+}
+
+form td span {
+    float: left;
+}
+form table th:last-child,
+form table td:last-child {
+    border-right:none;
+}
+
+.buttons-box {
+    clear: both;
+    display:block;
+    float: right;
+    margin: 10px;
+}
+#content-buttons ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#content-buttons ul li {
+    float: left;
+    margin: 0;
+    padding:5px;
+}
+#content-buttons ul.tabulate li {
+    width:180px;
+    border: 1px solid #ddd;
+}
+#content-buttons ul.tabulate li a,
+#content-buttons ul.tabulate li span {
+    float: right;
+    margin-left: 20px;
+}
+
+ul.tabulate li.dark {
+  background-color: white;
+}
+
+ul.tabulate li.light {
+  background-color: #222;
+  color: white;
+}
+
+#index h1, #index  p {
+    margin:20px;
+}
+
+/* Need to implement SVG Fix for footer gradient in IE9
+ * http://css3wizardry.com/2010/10/29/css-gradients-for-ie9/
+ */
+.gradient {
+    filter: none;
+ }
+
+.cl-required-field {
+    margin-right: 5px;
+}
+
+#breadcrumbs_example .breadcrumbs {
+  position: relative;
+  margin-top: 50px;
+}
+
+#breadcrumbs_example .breadcrumbs:before,
+#breadcrumbs_example .breadcrumbs:after {
+    content: " ";
+    display: table;
+}
+
+#breadcrumbs_example .breadcrumbs:after {
+    clear: both;
+}
+
+#breadcrumbs_example .breadcrumbs {
+    *zoom: 1;
+}
+
+#help-contents {
+  border:none;
+  width:100%;
+  height:410px;
+}
+/* Font page stuff */
+.font-sample {
+  width:440px;
+  float:left;
+  margin: 10px;
+  background-color: #fff;
+  padding:10px;
+   -webkit-box-shadow: 5px 5px 20px 0px #AAAAAA;
+           box-shadow: 5px 5px 20px 0px #AAAAAA;
+}
+
+.font-sample .image-sample {
+  float:right;
+}
+.jpn.meiryo {
+  font-family: Meiryo !important;
+  font-size:0.8em;
+}
+
+.jpn.ms-p-gothic {
+  font-family: 'MS PGothic' !important;
+  font-size: 1.2em;
+}
+
+/* Concierge page stuff */
+.concierge-box {
+  background-color: #fff;
+  -webkit-border-radius: 8px;
+    border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding:20px 40px 20px 40px;
+  font-size: 1.5em;
+   -webkit-box-shadow: 5px 5px 20px 0px #AAAAAA;
+           box-shadow: 5px 5px 20px 0px #AAAAAA;
+}
+
+
+.concierge-box hr {
+  margin: 10px 0 10px 0;
+}
+
+/* Type */
+.concierge-box .desc {
+  font-family: 'OpenSansLight', Arial, sans-serif;
+  font-size:18px;
+  margin:0;
+  color:#407398;
+}
+
+.concierge-box h1 {
+  font-family: 'OpenSansSemiBold', Arial, sans-serif;
+  font-size:31px;
+  margin:0;
+}
+.concierge-box h2 {
+  font-family: 'OpenSansSemiBold', Arial, sans-serif;
+  font-size:20px;
+}
+.concierge-box .column ul li.main,
+.concierge-box h3 {
+  font-family: 'OpenSansSemiBold', Arial, sans-serif;
+  font-size:18px;
+  margin:0;
+}
+
+.concierge-box .middle h3 {
+  border-bottom: 1px solid white;
+}
+
+.newsbox h2 {
+  font-size:16px;
+  margin:0;
+  float:left;
+}
+.newsbox h3 {
+  font-size:16px;
+}
+.helpbox p,
+.newsbox ul li {
+  font-size:12px;
+}
+
+.concierge-box .column ul li.sub {
+  font-family: 'OpenSansRegular', Arial, sans-serif;
+  font-size:16px;
+}
+
+.helpbox a {
+  font-family: 'OpenSansSemiBold', Arial, sans-serif;
+  font-size:16px;
+}
+
+/* Icons */
+.concierge-box .icon-close {
+  float:right;
+}
+
+.concierge-box .icon {
+  width:56px;
+  height:40px;
+  display:block;
+  float:left;
+  background-repeat: no-repeat;
+
+}
+
+.concierge-box .icon-maintenance {
+  background: url('../images/concierge-icons/spanner.png') no-repeat;
+}
+.concierge-box .icon-order {
+  background: url('../images/concierge-icons/order.png') no-repeat;
+}
+.concierge-box .icon-health {
+  background: url('../images/concierge-icons/health.png') no-repeat;
+}
+.concierge-box .icon-tickets {
+  background: url('../images/concierge-icons/ticket.png') no-repeat;
+}
+
+.concierge-box .hide-concierge {
+  clear: both;
+  float:right;
+  font-size: 0.7em;
+}
+
+/* Layout */
+.concierge-box .column {
+  float:left;
+  width:280px;
+  margin-right: 30px;
+}
+
+.concierge-box .column.last {
+  margin-right: 0;
+  width:260px;
+}
+
+.concierge-box ul {
+  list-style-type: none;
+  margin:0;
+  padding:0;
+}
+
+/* Column lists*/
+
+/* Fix the lists so we have equal height - 
+may be better to split the middle list entries
+into 2 items - "main" & "sub" having an <li> for each */
+/* Need to try and maintain the height of each list to be the
+  same! */
+.concierge-box .column ul li {
+  background-color:#e3eaef;
+  margin:10px 0 10px 0;
+  xpadding:10px 15px 10px 15px;
+  font-size:16px;
+  color: #7199b5;
+}
+
+.concierge-box  .column ul li:before,
+.concierge-box  .column ul li:after {
+    content: " ";
+    display: table;
+}
+
+.concierge-box  .column ul li:after {
+    clear: both;
+}
+
+.concierge-box  .column ul li {
+    *zoom: 1;
+}
+
+.concierge-box .column.first ul li {
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  height: 72px;
+}
+
+.concierge-box .column.first ul li a {
+  line-height: 1.4em;
+  margin:16px;
+  min-height: 41px;
+  display:block;
+  vertical-align: middle;
+}
+
+.concierge-box .column.middle ul li {
+  margin:0;
+  padding:0;
+}
+
+.concierge-box .column.middle ul li a {
+  padding:10px 15px 10px 15px;
+  display: block;
+  line-height: 1em;
+}
+
+.concierge-box .column ul li.main {
+  -webkit-border-radius: 8px 8px 0px 0px;
+  border-radius: 8px 8px 0px 0px;
+  margin-bottom: 1px;
+}
+.concierge-box .column ul li.main a {
+  padding-bottom:7px;
+}
+.concierge-box .column ul li.sub {
+  -webkit-border-radius: 0px 0px 8px 8px;
+  border-radius: 0px 0px 8px 8px;
+  margin-bottom: 10px;
+}
+
+
+/*
+.concierge-box .column.first ul li a{
+  vertical-align: middle;
+  min-height:43px;
+}
+.concierge-box .column.middle ul li {
+  padding-top: 6px;
+}
+.concierge-box .middle ul li a {
+  padding:3px 0 3px 0;
+  display: block;
+}*/
+
+.helpbox {
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+  xmargin:10px 20px 10px 20px;
+  padding:20px;
+  font-size:16px;
+  color: #7199b5;
+}
+.helpbox p {
+  margin-bottom: 20px
+}
+
+/* News item container */
+.newsbox {
+  margin:20px 0 20px 0;
+  color: #4d4e4e;
+  width:880px;
+  float:left;
+  clear:both;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  border:1px solid #e3eaef;
+  vertical-align: middle;
+}
+
+.newsbox h2 {
+  width:60px;
+  margin: 15px 0px 0px 20px;
+  padding:0;
+  float:left;
+}
+.newsbox .news-scroll {
+  width:647px;
+  height:80px;
+  margin-right:0px;
+  float:left;
+  overflow: hidden;
+}
+.newsbox .news-scroll ul {
+  width:1500px;
+  height: 80px;
+}
+.newsbox .news-scroll ul li {
+  width:175px;
+  height: 60px;
+  float:left;
+  padding: 10px 20px 10px 20px;
+  border-left:1px solid #e3eaef;
+}
+.newsbox .news-scroll ul li:first-child {
+  border-left:none;
+}
+.newsbox .scroll-left,
+.newsbox .scroll-right {
+  float:left;
+  width:40px;
+  height:40px;
+  background: url('../images/concierge-icons/arrow-left.png') no-repeat;
+  margin:15px;
+  background-position:  center center;
+}
+.newsbox .scroll-right {
+  float:right;
+  background-image: url('../images/concierge-icons/arrow-right.png');
+}
+.tooltip {
+	top: 0;
+	left: 0;
+	display:none;
+	position:absolute;
+	border:1px solid #333;
+	background-color:#ffffff;
+	border-radius:5px;
+	padding:10px;
+	color:#161616;
+	font-size:12px Arial;
+	max-width: 400px;
+}
