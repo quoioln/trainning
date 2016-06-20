@@ -23,14 +23,14 @@ public class Login extends ActionSupport{
 	}
 	
 	public void validate() {
-		if (userName == null || userName.length() == 0) {
-			System.out.println("user name = " + userName);
-			addFieldError("userName", "Username is required");
-		}
-		if (password == null || password.length() == 0) {
-			System.out.println("password = " + password);
-			addFieldError("password", "Password is required");
-		}
+//		if (userName == null || userName.length() == 0) {
+//			System.out.println("user name = " + userName);
+//			addFieldError("userName", "Username is required");
+//		}
+//		if (password == null || password.length() == 0) {
+//			System.out.println("password = " + password);
+//			addFieldError("password", "Password is required");
+//		}
 	}
 
 	/**
