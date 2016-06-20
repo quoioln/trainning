@@ -27,18 +27,23 @@ public class Login extends ActionSupport{
 	}
 	
 	public void validate() {
-		boolean checkValidate = true;
-
-		if (userName.length() == 0) {
+		if (userName == null && userName.length() == 0) {
+			addFieldError("userName", "Username is required");
+		}
+//		boolean checkValidate = true;
+/*
+		if (userName == null && userName.length() == 0) {
 			System.out.println("user name = " + userName);
 //			addFieldError("userName", "Username is required");
-			checkValidate = false;
+//			checkValidate = false;
+//			ERROR
 		}
-		if (password.length() == 0) {
+		if (password == null && password.length() == 0) {
 			System.out.println("password = " + password);
 //			addFieldError("password", "Password is required");
-			checkValidate = false;
+//			checkValidate = false;
 		}
+		*/
 //		return checkValidate;
 	}
 
