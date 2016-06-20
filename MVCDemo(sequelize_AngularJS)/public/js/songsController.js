@@ -268,7 +268,7 @@ mainApp.controller('loadSongs', ['$scope', '$rootScope', '$http',
                   + "<td>" + song.singer + "</td>"
                   + "<td>" + song.karaoke + "</td>"
                   + "<td>" + song.duration + "</td>"
-                  + "<td><a target=\"song\" href=\"" + song.link + "\">"+ song.link.replace("watch?v=", "v/") + "</a></td>";
+                  + "<td><a target=\"song\" href=\"" + song.link + "\">"+ song.link.replace('watch?v=', 'v/') + "</a></td>";
                   // + "<td><a width =\"320\" height=\"240\"  src=\"" + song.link.replace("watch?v=", "v/") + "\" allowfullscreen frameborder=\"0\">"+  "</iframe></td>";
           $("#view-table table tr").has("input[name=checkbox]:checked").html(row);
           $('#modelUpdateForm').modal("hide");
