@@ -13,10 +13,10 @@ public class Login extends ActionSupport{
 	private String password;
 	
 	public String execute() {
-		if (!inputValidate()) {
-			System.out.println("INPUT");
-			return INPUT;
-		}
+//		if (!inputValidate()) {
+//			System.out.println("INPUT");
+//			return INPUT;
+//		}
 		AccountDAO accountDAO = new AccountDAO();
 		Account account = accountDAO.getAccountByUserName(userName);
 		System.out.println("Account = " + account);
@@ -26,22 +26,20 @@ public class Login extends ActionSupport{
 			return SUCCESS;
 	}
 	
-	private boolean inputValidate() {
+	public void validate() {
 		boolean checkValidate = true;
-		if (userName == null || password == null) {
-			checkValidate = false;
-		}
+
 		if (userName.length() == 0) {
 			System.out.println("user name = " + userName);
 //			addFieldError("userName", "Username is required");
 			checkValidate = false;
 		}
-		if (password == null || password.length() == 0) {
+		if (password.length() == 0) {
 			System.out.println("password = " + password);
 //			addFieldError("password", "Password is required");
 			checkValidate = false;
 		}
-		return checkValidate;
+//		return checkValidate;
 	}
 
 	/**
