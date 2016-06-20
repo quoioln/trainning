@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><tiles:insertAttribute name = "title" ignore="true"></tiles:insertAttribute></title>
+<title><tiles:insertAttribute name = "title" ignore="true"/></title>
 </head>
 <body>
 	<tiles:insertAttribute name="banner"/>

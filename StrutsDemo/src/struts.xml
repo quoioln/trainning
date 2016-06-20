@@ -14,7 +14,6 @@
 			<result name="success" type="tiles">home</result>
 			<result name="login" type="tiles">login</result>
 			<result name="input" type="tiles">login</result>
-			<result name="error" type="tiles">login</result>
 		</action>
 		
 <!-- 		<action name="addInfo" class="com.quoioln.action.AddInfo"> -->

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-	<form action="login" method="post" >
+	<form action="loginAction" method="post" >
 		<table>
 			<tr>
 				<td>User name: </td>
