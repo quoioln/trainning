@@ -1,0 +1,1 @@
+<div style="text-align: right;">Contact to vpquoi@tma.com.vn</div>
