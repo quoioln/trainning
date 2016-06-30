@@ -27,9 +27,9 @@ public class Login extends ActionSupport{
 	}
 	
 	public void validate() {
-		if (userName == null && userName.length() == 0) {
-			addFieldError("userName", "Username is required");
-		}
+//		if (userName == null && userName.length() == 0) {
+//			addFieldError("userName", "Username is required");
+//		}
 //		boolean checkValidate = true;
 /*
 		if (userName == null && userName.length() == 0) {
