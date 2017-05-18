@@ -134,7 +134,7 @@ function search(nameSong, language, topic, karaoke) {
     return false;
 }
 
-$(document).ready(function() {
+$(function() {
     // $('.selectpicker').selectpicker({
     //   // style: 'btn-info',
     //   // width: 20px,
